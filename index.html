@@ -6,7 +6,7 @@
 	<title>Magic Moving Box</title>
   </head>
   <body>
-	  
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<button style="background-color:black; border-color:white"onclick="pause()">
 	  <i class="material-icons" id="pause" style="color:white">pause</i>
@@ -25,7 +25,9 @@
 
 
 	</script>
+<div id="bad" style="background:red;height:25px;width:25px;position:absolute;">
 
+</div>
 
 
 <div id="box" style="background:pink;height:100px;width:100px;position:absolute;" class="center"></div>
@@ -36,6 +38,28 @@
   </body>
 </html>
 <script>
+setInterval(function() {
+  checkCollision();
+  var div1 = document.getElementById("box");
+  var rect1 = div1.getBoundingClientRect();
+  var div2 = document.getElementById("bad");
+  var rect2 = div2.getBoundingClientRect();
+  if (rect1.left < rect2.right && rect1.right > rect2.left && rect1.top < rect2.bottom && rect1.bottom > rect2.top){
+    $("#bad").fadeOut()
+    $("#box").fadeOut()
+    $("#target").fadeOut()
+    alert("game over")
+    alert("refresh to restart")
+    var points = points - points;
+  }
+}, 100);
+
+
+
+
+
+
+
     function pause(){
 	  alert("the game is paused, you can close your computer if wanted, press ok to unpause.")
 	}
@@ -54,8 +78,11 @@
     $("#target").fadeOut(function() {
       var randomX = Math.floor(Math.random() * $(window).width());
       var randomY = Math.floor(Math.random() * $(window).height());
+      var randomX2 = Math.floor(Math.random() * $(window).width());
+      var randomY2 = Math.floor(Math.random() * $(window).height());
       $("#target").animate({left: randomX, top: randomY}, 1000);
       $("#target").fadeIn();
+      $("#bad").animate({left: randomX2, top:randomY2},1000);
     });
 	updatePoints()
   }
