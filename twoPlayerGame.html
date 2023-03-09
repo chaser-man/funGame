@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link href="javascript.css" type="text/css">
+	<title>Magic Moving Box</title>
+  </head>
+  <body>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+
+
+
+
+
+
+  </script>
+	<button style="background-color:black; border-color:white"onclick="pause()">
+	  <i class="material-icons" id="pause" style="color:white">pause</i>
+	</button>
+	  <center>
+	  <p style="color:#FFE5B4">
+		Points:
+	  </p>
+	<p id="points" style="color:#FFE5B4"> </p>
+	</center>
+
+<div id="bad" style="background:red;height:75px;width:75px;position:absolute;">
+
+</div>
+
+
+<div id="box" style="background:pink;height:75px;width:75px;position:absolute;"></div>
+	<center>
+
+	  </center>
+  </body>
+</html>
+<script>
+
+
+
+
+
+
+
+
+
+
+    function pause(){
+	  alert("the game is paused, you can close your computer if wanted, press ok to unpause.")
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+let x = 225;
+let y = 300;
+
+
+
+
+
+
+
+
+
+
+
+$(document).keyup(function(e){
+  if(e.which == 38 && y > 0){
+	$("#box").animate({top: "-=100"}, 40, function(){});
+  }else if(e.which == 40 && y < 600){
+	$("#box").animate({top: "+=100px"}, 40, function(){})
+  }else if(e.which == 37 && x > 0){
+	$("#box").animate({left: "-=100"},40, function(){})
+  }else if(e.which == 39 && x < 450){
+	$("#box").animate({left: "+=100"},40, function(){})
+  }else if(e.which == 87 && y > 0){
+	$("#bad").animate({top: "-=75"}, 40, function(){})
+  }else if(e.which == 83 && y < 600){
+	$("#bad").animate({top: "+=75"},40, function(){})
+  }else if(e.which == 68 && x > 0){
+	$("#bad").animate({left: "+=75"},40, function(){})
+  }else if(e.which == 65 && x < 450){
+	$("#bad").animate({left: "-=75"},40, function(){})
+  }else if(e.which == 32){
+	var randomX = Math.floor(Math.random() * $(window).width());
+	var randomY = Math.floor(Math.random() * $(window).height());
+	  $("#box").slideUp(2000);
+	$("#box").animate({left: randomX, top: randomY}, 1001);
+	  $("#box").slideDown(2000);
+  }
+})
+
+
+
+let box = document.getElementById("box");
+let bad = document.getElementById("bad");
+
+function checkCollision() {
+  let rect1 = box.getBoundingClientRect();
+  let rect2 = bad.getBoundingClientRect();
+
+  if (rect1.left < rect2.right &&
+    rect1.right > rect2.left &&
+    rect1.top < rect2.bottom &&
+    rect1.bottom > rect2.top) {
+    box.style.display = "none";
+    bad.style.display = "none";
+  }
+}
+
+setInterval(checkCollision, 40);
+
+
+
+
+
+
+
+
+</script>
+
+
+<style media="screen">
+#box{
+  top:200px;
+  left:250px;
+}
+
+body{
+  background-color:royalblue;
+}
+
+</style>
